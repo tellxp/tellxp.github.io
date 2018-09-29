@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="1. CAT 0 = 0b00111110 V=62，十进制     2. LEN 1 = 0b00000000 2 = 0b01011010 V=90，十进制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一次CAT62的译码过程">
+<meta property="og:url" content="http://tellxp.github.io/2018/08/29/2018-08-29-cat62-decode/index.html">
+<meta property="og:site_name" content="tellxp的博客">
+<meta property="og:description" content="1. CAT 0 = 0b00111110 V=62，十进制     2. LEN 1 = 0b00000000 2 = 0b01011010 V=90，十进制">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-29T15:46:21.115Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一次CAT62的译码过程">
+<meta name="twitter:description" content="1. CAT 0 = 0b00111110 V=62，十进制     2. LEN 1 = 0b00000000 2 = 0b01011010 V=90，十进制">
+
+
+
+
+
+
+  <link rel="canonical" href="http://tellxp.github.io/2018/08/29/2018-08-29-cat62-decode/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>一次CAT62的译码过程 | tellxp的博客</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tellxp的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://tellxp.github.io/2018/08/29/2018-08-29-cat62-decode/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tellxp">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tellxp的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">一次CAT62的译码过程
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-08-29 13:30:20" itemprop="dateCreated datePublished" datetime="2018-08-29T13:30:20+08:00">2018-08-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-29 23:46:21" itemprop="dateModified" datetime="2018-09-29T23:46:21+08:00">2018-09-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/cat-eurocontrol/" itemprop="url" rel="index"><span itemprop="name">cat eurocontrol</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-CAT"><a href="#1-CAT" class="headerlink" title="1. CAT"></a>1. CAT</h1><ul>
+<li>0 = 0b00111110<blockquote>
+<p>V=62，十进制</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h1 id="2-LEN"><a href="#2-LEN" class="headerlink" title="2. LEN"></a>2. LEN</h1><ul>
+<li>1 = 0b00000000</li>
+<li>2 = 0b01011010<blockquote>
+<p>V=90，十进制</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<a id="more"></a>
+<h1 id="3-FSPEC"><a href="#3-FSPEC" class="headerlink" title="3. FSPEC"></a>3. FSPEC</h1><ul>
+<li>3 = 0b10111111<blockquote>
+<p>见下表</p>
+</blockquote>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">F1</th>
+<th style="text-align:center">F2</th>
+<th style="text-align:center">F3</th>
+<th style="text-align:center">F4</th>
+<th style="text-align:center">F5</th>
+<th style="text-align:center">F6</th>
+<th style="text-align:center">F7</th>
+<th style="text-align:center">FX</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>4 = 0b01001101<blockquote>
+<p>见下表</p>
+</blockquote>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">F8</th>
+<th style="text-align:center">F9</th>
+<th style="text-align:center">F10</th>
+<th style="text-align:center">F11</th>
+<th style="text-align:center">F12</th>
+<th style="text-align:center">F13</th>
+<th style="text-align:center">F14</th>
+<th style="text-align:center">FX</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>5 = 0b00100110<blockquote>
+<p>见下表</p>
+</blockquote>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">F15</th>
+<th style="text-align:center">F16</th>
+<th style="text-align:center">F17</th>
+<th style="text-align:center">F18</th>
+<th style="text-align:center">F19</th>
+<th style="text-align:center">F20</th>
+<th style="text-align:center">F21</th>
+<th style="text-align:center">FX</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1 id="4-Data-Fields"><a href="#4-Data-Fields" class="headerlink" title="4. Data Fields"></a>4. Data Fields</h1><ul>
+<li><p>F1 Data Source Identifier</p>
+<ul>
+<li>6 = 0b10010000</li>
+<li>7 = 0b10010000<blockquote>
+<p>V=Turkmenistan</p>
+<blockquote>
+<p>由于是欧洲标准，所以没有亚洲国家，选择土库曼斯坦，SAC SIC 查询地址为：<a href="https://www.eurocontrol.int/services/system-area-code-list" target="_blank" rel="noopener">https://www.eurocontrol.int/services/system-area-code-list</a></p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>F3 Service Identification</p>
+<ul>
+<li>8 = 0b00000001<blockquote>
+<p>The service identification is allocated by the system</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>F4 Time Of Track Information</p>
+<ul>
+<li>9 = 0b00101110</li>
+<li>10 = 0b10011000</li>
+<li>11 = 0b01011001<blockquote>
+<p>V=063736</p>
+<blockquote>
+<p>UTC时间为063736，北京时间为143736，十进制的值乘以1/128s</p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>F5 Calculated Track Position (WGS-84)</p>
+<ul>
+<li>12 = 0b00000000</li>
+<li>13 = 0b01001111</li>
+<li>14 = 0b01011000</li>
+<li>15 = 0b01110000</li>
+<li>16 = 0b00000001</li>
+<li>17 = 0b00100111</li>
+<li>18 = 0b11101111</li>
+<li>19 = 0b11101110<blockquote>
+<p>LAT=27.8948879241943, LON=104.040431</p>
+<blockquote>
+<p>十进制的值乘以180/2exp(25),12-15是纬度，16-19是经度</p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>F6 Calculated Track Position (Cartesian)</p>
+<ul>
+<li>20 = 0b00000000</li>
+<li>21 = 0b01000110</li>
+<li>22 = 0b11011111</li>
+<li>23 = 0b11110110</li>
+<li>24 = 0b11101100</li>
+<li>25 = 0b01011000</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>F7 Calculated Track Velocity (Cartesian)</p>
+<ul>
+<li>26 = 0b00000001</li>
+<li>27 = 0b11010011</li>
+<li>28 = 0b00000011</li>
+<li>29 = 0b01101111</li>
+</ul>
+</li>
+<li><p>F9 Track Mode 3/A Code</p>
+<ul>
+<li>30 = 0b00000111</li>
+<li>31 = 0b01010011<ul>
+<li>(V)=0, (G)=0, (CH)</li>
+<li>code1=011=3, code2=101=5, code3=010=2, code4=011=3 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>F12 Track Number</p>
+<ul>
+<li>32 = 0b00000000</li>
+<li>33 = 0b01000110<blockquote>
+<p>V=70</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>F13 Track Status</p>
+<ul>
+<li>34 = 0b00000001<blockquote>
+<p>见下表</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">MON</th>
+<th style="text-align:center">SPI</th>
+<th style="text-align:center">MRH</th>
+<th style="text-align:center">SRC</th>
+<th style="text-align:center">SRC</th>
+<th style="text-align:center">SRC</th>
+<th style="text-align:center">CNF</th>
+<th style="text-align:center">FX</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>35 = 0b00010001<blockquote>
+<p>见下表</p>
+</blockquote>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">SIM</th>
+<th style="text-align:center">TSE</th>
+<th style="text-align:center">TSB</th>
+<th style="text-align:center">FPC</th>
+<th style="text-align:center">AFF</th>
+<th style="text-align:center">STP</th>
+<th style="text-align:center">KOS</th>
+<th style="text-align:center">FX</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>36 = 0b00000001<blockquote>
+<p>see follow table</p>
+</blockquote>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">AMA</th>
+<th style="text-align:center">MD4</th>
+<th style="text-align:center">MD4</th>
+<th style="text-align:center">ME</th>
+<th style="text-align:center">MI</th>
+<th style="text-align:center">MD5</th>
+<th style="text-align:center">MD5</th>
+<th style="text-align:center">FX</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>37 = 0b00000000<blockquote>
+<p>see follow table</p>
+</blockquote>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">CST</th>
+<th style="text-align:center">PSR</th>
+<th style="text-align:center">SSR</th>
+<th style="text-align:center">MDS</th>
+<th style="text-align:center">ADS</th>
+<th style="text-align:center">SUC</th>
+<th style="text-align:center">AAC</th>
+<th style="text-align:center">FX</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>F17 Measured Flight Level<ul>
+<li>38 = 0b00000001</li>
+<li>39 = 0b00100011<blockquote>
+<p>V=0000000100100011=291*1/4FL=72.75FL</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>F20 Calculated Rate Of Climb/Descent</p>
+<ul>
+<li>40 = 0b00000000</li>
+<li>41 = 0b00000000<blockquote>
+<p>V=0*6.25feet/minute</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>F21 Flight Plan Related Data</p>
+<ul>
+<li><p>Primary Subfield</p>
+<ul>
+<li><p>42 = 0b11011111</p>
+<blockquote>
+<p>see table</p>
+</blockquote>
+<p>| TAG  | CSN  | IFI  | FCT  | TAC  | WTC  | DEP  | FX   |<br>|:—-:|:—-:|:—-:|:—-:|:—-:|:—-:|:—-:|:—-:|<br>|1     | 1    | 0    | 1    | 1    | 1    | 1    | 1    | </p>
+</li>
+<li><p>43 = 0b10101000</p>
+<blockquote>
+<p>see table</p>
+</blockquote>
+<p>| DST  | RDS  | CFL  | CTL  | TOD  | AST  | STS  | FX   |<br>|:—-:|:—-:|:—-:|:—-:|:—-:|:—-:|:—-:|:—-:|<br>|1     | 0    | 1    | 0    | 1    | 0    | 0    | 0    | </p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>&gt; over, next table is deprecated
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:center">STD</th>
+<th style="text-align:center">STA</th>
+<th style="text-align:center">PEM</th>
+<th style="text-align:center">PEC</th>
+<th style="text-align:center">0</th>
+<th style="text-align:center">0</th>
+<th style="text-align:center">0</th>
+<th style="text-align:center">FX</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Subfield</p>
+<h6 id="TAG"><a href="#TAG" class="headerlink" title="TAG"></a>TAG</h6><ul>
+<li>44 = 0b00000000</li>
+<li>45 = 0b00000000<blockquote>
+<p>V=0</p>
+</blockquote>
+</li>
+</ul>
+<h6 id="CSN"><a href="#CSN" class="headerlink" title="CSN"></a>CSN</h6><ul>
+<li>46 = 0b01000011</li>
+<li>47 = 0b01000100</li>
+<li>48 = 0b01000111</li>
+<li>49 = 0b00110100</li>
+<li>50 = 0b00111000</li>
+<li>51 = 0b00110111</li>
+<li>52 = 0b00110100<blockquote>
+<p>V=CDG4874</p>
+<blockquote>
+<p>ASCII转码</p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<h6 id="FCT"><a href="#FCT" class="headerlink" title="FCT"></a>FCT</h6><ul>
+<li>53 = 0b01101000 <blockquote>
+<p>see table</p>
+</blockquote>
+</li>
+</ul>
+<p>| GAT/OAT  | FR1/FR2 | RVSM | HPR  | 0    |<br>|:——–:|:——-:|:—-:|:—-:|:—-:|<br>| 01       | 10      | 10   | 0    | 0    |</p>
+<h6 id="TAC"><a href="#TAC" class="headerlink" title="TAC"></a>TAC</h6><ul>
+<li>54 = 0b01000010</li>
+<li>55 = 0b00110111</li>
+<li>56 = 0b00110011</li>
+<li>57 = 0b00110111<blockquote>
+<p>V=B737</p>
+<blockquote>
+<p>ASCII转码</p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<h6 id="WTC"><a href="#WTC" class="headerlink" title="WTC"></a>WTC</h6><ul>
+<li>58 = 0b01001101<blockquote>
+<p>V=M</p>
+<blockquote>
+<p>ASCII转码</p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<h6 id="DEP"><a href="#DEP" class="headerlink" title="DEP"></a>DEP</h6><ul>
+<li>59 = 0b01011010</li>
+<li>60 = 0b01010000</li>
+<li>61 = 0b01010000</li>
+<li>62 = 0b01010000<blockquote>
+<p>V=ZPPP</p>
+<blockquote>
+<p>ASCII转码</p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<h6 id="DST"><a href="#DST" class="headerlink" title="DST"></a>DST</h6><ul>
+<li>63 = 0b01011010</li>
+<li>64 = 0b01010011</li>
+<li>65 = 0b01001010</li>
+<li>66 = 0b01001110<blockquote>
+<p>V=ZSJN</p>
+<blockquote>
+<p>ASCII转码</p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<h6 id="CFL"><a href="#CFL" class="headerlink" title="CFL"></a>CFL</h6><ul>
+<li>67 = 0b00000000</li>
+<li>68 = 0b00000000<blockquote>
+<p>V=0*1/4FL</p>
+</blockquote>
+</li>
+</ul>
+<h6 id="TOD"><a href="#TOD" class="headerlink" title="TOD"></a>TOD</h6><ul>
+<li>69 = 0b00000101<blockquote>
+<p>REP=5</p>
+<blockquote>
+<p>重复5次</p>
+</blockquote>
+</blockquote>
+</li>
+<li><p>第1次</p>
+<ul>
+<li>70 = 0b00001000</li>
+<li>71 = 0b00000000</li>
+<li>72 = 0b00000000</li>
+<li><p>73 = 0b10000000</p>
+<blockquote>
+<p>TYP=1=EOBT</p>
+</blockquote>
+<blockquote>
+<p>DAY=0=TODAY</p>
+</blockquote>
+<blockquote>
+<p>HOR=0</p>
+</blockquote>
+<blockquote>
+<p>MIN=0</p>
+</blockquote>
+<blockquote>
+<p>AVS=1</p>
+</blockquote>
+<blockquote>
+<p>SEC=16</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>第2次</p>
+<ul>
+<li>74 = 0b00010000</li>
+<li>75 = 0b00000000</li>
+<li>76 = 0b00000000</li>
+<li><p>77 = 0b10000000</p>
+<blockquote>
+<p>TYP=2=ETD</p>
+</blockquote>
+<blockquote>
+<p>DAY=0=TODAY</p>
+</blockquote>
+<blockquote>
+<p>HOR=0</p>
+</blockquote>
+<blockquote>
+<p>MIN=0</p>
+</blockquote>
+<blockquote>
+<p>AVS=1</p>
+</blockquote>
+<blockquote>
+<p>SEC=0</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>第3次</p>
+<ul>
+<li>78 = 0b00111000</li>
+<li>79 = 0b00000000</li>
+<li>80 = 0b00000000</li>
+<li><p>81 = 0b10000000</p>
+<blockquote>
+<p>TYP=7=ATOT</p>
+</blockquote>
+<blockquote>
+<p>DAY=0=TODAY</p>
+</blockquote>
+<blockquote>
+<p>HOR=0</p>
+</blockquote>
+<blockquote>
+<p>MIN=0</p>
+</blockquote>
+<blockquote>
+<p>AVS=1</p>
+</blockquote>
+<blockquote>
+<p>SEC=0</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>第4次</p>
+<ul>
+<li>82 = 0b01000000</li>
+<li>83 = 0b00000000</li>
+<li>84 = 0b00000000</li>
+<li><p>85 = 0b10000000</p>
+<blockquote>
+<p>TYP=8=ETA</p>
+</blockquote>
+<blockquote>
+<p>DAY=0=TODAY</p>
+</blockquote>
+<blockquote>
+<p>HOR=0</p>
+</blockquote>
+<blockquote>
+<p>MIN=0</p>
+</blockquote>
+<blockquote>
+<p>AVS=1</p>
+</blockquote>
+<blockquote>
+<p>SEC=0</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>第5次</p>
+<ul>
+<li>86 = 0b01010000</li>
+<li>87 = 0b00000000</li>
+<li>88 = 0b00000000</li>
+<li><p>89 = 0b10000000</p>
+<blockquote>
+<p>TYP=10=ALDT</p>
+</blockquote>
+<blockquote>
+<p>DAY=0=TODAY</p>
+</blockquote>
+<blockquote>
+<p>HOR=0</p>
+</blockquote>
+<blockquote>
+<p>MIN=0</p>
+</blockquote>
+<blockquote>
+<p>AVS=1</p>
+</blockquote>
+<blockquote>
+<p>SEC=0</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/05/2017-06-05-inlineblock-overflow/" rel="next" title="当inline-block遇上overflow">
+                <i class="fa fa-chevron-left"></i> 当inline-block遇上overflow
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/23/2018-09-23-kubernetes-1-11-3-install/" rel="prev" title="安装Kubernetes 1.11.3">
+                安装Kubernetes 1.11.3 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tellxp</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-CAT"><span class="nav-number">1.</span> <span class="nav-text">1. CAT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-LEN"><span class="nav-number">2.</span> <span class="nav-text">2. LEN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-FSPEC"><span class="nav-number">3.</span> <span class="nav-text">3. FSPEC</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Data-Fields"><span class="nav-number">4.</span> <span class="nav-text">4. Data Fields</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#TAG"><span class="nav-number">4.0.0.0.0.1.</span> <span class="nav-text">TAG</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#CSN"><span class="nav-number">4.0.0.0.0.2.</span> <span class="nav-text">CSN</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#FCT"><span class="nav-number">4.0.0.0.0.3.</span> <span class="nav-text">FCT</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#TAC"><span class="nav-number">4.0.0.0.0.4.</span> <span class="nav-text">TAC</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#WTC"><span class="nav-number">4.0.0.0.0.5.</span> <span class="nav-text">WTC</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#DEP"><span class="nav-number">4.0.0.0.0.6.</span> <span class="nav-text">DEP</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#DST"><span class="nav-number">4.0.0.0.0.7.</span> <span class="nav-text">DST</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#CFL"><span class="nav-number">4.0.0.0.0.8.</span> <span class="nav-text">CFL</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#TOD"><span class="nav-number">4.0.0.0.0.9.</span> <span class="nav-text">TOD</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tellxp</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Gemini</a> v6.4.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
