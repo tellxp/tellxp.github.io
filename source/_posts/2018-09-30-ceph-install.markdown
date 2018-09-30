@@ -3,7 +3,8 @@ layout: single
 classes: wide
 title:  "安装Ceph并与Kubernetes集成"
 date:   2018-09-30 08:36:38 +0800
-categories: ceph
+categories: 
+- ceph
 tags:
 - kubernetes
 - ceph
