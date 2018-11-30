@@ -2065,8 +2065,3 @@ categories: cat eurocontrol
 - SIM = 1 = Simulated target report
 - RAB = 1 = Report from field monitor
 - TST = 1 = Test target report
-
-# 附录 模拟的byte数组
-```java
-
-```
