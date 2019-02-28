@@ -96,17 +96,17 @@
 
 
 
-  <meta name="description" content="CAT 0 = 0b00111110    V=62，十进制  LEN 1 = 0b00000000    2 = 0b01011010    V=90，十进制">
+  <meta name="description" content="1. CAT 0 = 0b00111110    V=62，十进制  2. LEN 1 = 0b00000000    2 = 0b01011010    V=90，十进制">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一次CAT62的译码过程">
 <meta property="og:url" content="http://tellxp.github.io/2018/08/29/2018-08-29-cat62-decode/index.html">
 <meta property="og:site_name" content="tellxp的博客">
-<meta property="og:description" content="CAT 0 = 0b00111110    V=62，十进制  LEN 1 = 0b00000000    2 = 0b01011010    V=90，十进制">
+<meta property="og:description" content="1. CAT 0 = 0b00111110    V=62，十进制  2. LEN 1 = 0b00000000    2 = 0b01011010    V=90，十进制">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-10-22T00:51:29.658Z">
+<meta property="og:updated_time" content="2019-02-28T14:10:06.583Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一次CAT62的译码过程">
-<meta name="twitter:description" content="CAT 0 = 0b00111110    V=62，十进制  LEN 1 = 0b00000000    2 = 0b01011010    V=90，十进制">
+<meta name="twitter:description" content="1. CAT 0 = 0b00111110    V=62，十进制  2. LEN 1 = 0b00000000    2 = 0b01011010    V=90，十进制">
 
 
 
@@ -348,7 +348,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-10-22 08:51:29" itemprop="dateModified" datetime="2018-10-22T08:51:29+08:00">2018-10-22</time>
+                <time title="修改时间：2019-02-28 22:10:06" itemprop="dateModified" datetime="2019-02-28T22:10:06+08:00">2019-02-28</time>
               
             
           </span>
@@ -400,18 +400,18 @@
       
 
       
-        <h1 id="CAT"><a href="#CAT" class="headerlink" title="CAT"></a>CAT</h1><blockquote>
+        <h1 id="1-CAT"><a href="#1-CAT" class="headerlink" title="1. CAT"></a>1. CAT</h1><blockquote>
 <p>0 = 0b00111110</p>
 </blockquote>
 <p>  <strong>V=62，十进制</strong></p>
 <hr>
-<h1 id="LEN"><a href="#LEN" class="headerlink" title="LEN"></a>LEN</h1><blockquote>
+<h1 id="2-LEN"><a href="#2-LEN" class="headerlink" title="2. LEN"></a>2. LEN</h1><blockquote>
 <p>1 = 0b00000000<br>    2 = 0b01011010</p>
 </blockquote>
 <p>  <strong>V=90，十进制</strong></p>
 <hr>
 <a id="more"></a>
-<h1 id="FSPEC"><a href="#FSPEC" class="headerlink" title="FSPEC"></a>FSPEC</h1><blockquote>
+<h1 id="3-FSPEC"><a href="#3-FSPEC" class="headerlink" title="3. FSPEC"></a>3. FSPEC</h1><blockquote>
 <p>3 = 0b10111111</p>
 </blockquote>
 <table>
@@ -499,37 +499,37 @@
 </tbody>
 </table>
 <hr>
-<h1 id="Data-Fields"><a href="#Data-Fields" class="headerlink" title="Data Fields"></a>Data Fields</h1><h2 id="F1-Data-Source-Identifier"><a href="#F1-Data-Source-Identifier" class="headerlink" title="F1 Data Source Identifier"></a>F1 Data Source Identifier</h2><blockquote>
+<h1 id="4-Data-Fields"><a href="#4-Data-Fields" class="headerlink" title="4. Data Fields"></a>4. Data Fields</h1><h2 id="4-1-F1-Data-Source-Identifier"><a href="#4-1-F1-Data-Source-Identifier" class="headerlink" title="4.1 F1 Data Source Identifier"></a>4.1 F1 Data Source Identifier</h2><blockquote>
 <p>6 = 0b10010000<br>7 = 0b10010000</p>
 </blockquote>
 <p>  <strong>V=Turkmenistan, 由于是欧洲标准，所以没有亚洲国家，选择土库曼斯坦，SAC SIC 查询地址为：<a href="https://www.eurocontrol.int/services/system-area-code-list" target="_blank" rel="noopener">https://www.eurocontrol.int/services/system-area-code-list</a></strong></p>
-<h2 id="F3-Service-Identification"><a href="#F3-Service-Identification" class="headerlink" title="F3 Service Identification"></a>F3 Service Identification</h2><blockquote>
+<h2 id="4-2-F3-Service-Identification"><a href="#4-2-F3-Service-Identification" class="headerlink" title="4.2 F3 Service Identification"></a>4.2 F3 Service Identification</h2><blockquote>
 <p>8 = 0b00000001</p>
 </blockquote>
 <p>  <strong>The service identification is allocated by the system</strong></p>
-<h2 id="F4-Time-Of-Track-Information"><a href="#F4-Time-Of-Track-Information" class="headerlink" title="F4 Time Of Track Information"></a>F4 Time Of Track Information</h2><blockquote>
+<h2 id="4-3-F4-Time-Of-Track-Information"><a href="#4-3-F4-Time-Of-Track-Information" class="headerlink" title="4.3 F4 Time Of Track Information"></a>4.3 F4 Time Of Track Information</h2><blockquote>
 <p>9 = 0b00101110<br>    10 = 0b10011000<br>    11 = 0b01011001</p>
 </blockquote>
 <p>  <strong>V=063736, UTC时间为063736，北京时间为143736，十进制的值乘以1/128s</strong></p>
-<h2 id="F5-Calculated-Track-Position-WGS-84"><a href="#F5-Calculated-Track-Position-WGS-84" class="headerlink" title="F5 Calculated Track Position (WGS-84)"></a>F5 Calculated Track Position (WGS-84)</h2><blockquote>
+<h2 id="4-4-F5-Calculated-Track-Position-WGS-84"><a href="#4-4-F5-Calculated-Track-Position-WGS-84" class="headerlink" title="4.4 F5 Calculated Track Position (WGS-84)"></a>4.4 F5 Calculated Track Position (WGS-84)</h2><blockquote>
 <p>12 = 0b00000000<br>    13 = 0b01001111<br>    14 = 0b01011000<br>    15 = 0b01110000<br>    16 = 0b00000001<br>    17 = 0b00100111<br>    18 = 0b11101111<br>    19 = 0b11101110</p>
 </blockquote>
 <p>  <strong>LAT=27.8948879241943, LON=104.040431, 十进制的值乘以180/2exp(25),12-15是纬度，16-19是经度</strong></p>
-<h2 id="F6-Calculated-Track-Position-Cartesian"><a href="#F6-Calculated-Track-Position-Cartesian" class="headerlink" title="F6 Calculated Track Position (Cartesian)"></a>F6 Calculated Track Position (Cartesian)</h2><blockquote>
+<h2 id="4-5-F6-Calculated-Track-Position-Cartesian"><a href="#4-5-F6-Calculated-Track-Position-Cartesian" class="headerlink" title="4.5 F6 Calculated Track Position (Cartesian)"></a>4.5 F6 Calculated Track Position (Cartesian)</h2><blockquote>
 <p>20 = 0b00000000<br>    21 = 0b01000110<br>    22 = 0b11011111<br>    23 = 0b11110110<br>    24 = 0b11101100<br>    25 = 0b01011000</p>
 </blockquote>
-<h2 id="F7-Calculated-Track-Velocity-Cartesian"><a href="#F7-Calculated-Track-Velocity-Cartesian" class="headerlink" title="F7 Calculated Track Velocity (Cartesian)"></a>F7 Calculated Track Velocity (Cartesian)</h2><blockquote>
+<h2 id="4-7-F7-Calculated-Track-Velocity-Cartesian"><a href="#4-7-F7-Calculated-Track-Velocity-Cartesian" class="headerlink" title="4.7 F7 Calculated Track Velocity (Cartesian)"></a>4.7 F7 Calculated Track Velocity (Cartesian)</h2><blockquote>
 <p>26 = 0b00000001<br>    27 = 0b11010011<br>    28 = 0b00000011<br>    29 = 0b01101111</p>
 </blockquote>
-<h2 id="F9-Track-Mode-3-A-Code"><a href="#F9-Track-Mode-3-A-Code" class="headerlink" title="F9 Track Mode 3/A Code"></a>F9 Track Mode 3/A Code</h2><blockquote>
+<h2 id="4-8-F9-Track-Mode-3-A-Code"><a href="#4-8-F9-Track-Mode-3-A-Code" class="headerlink" title="4.8 F9 Track Mode 3/A Code"></a>4.8 F9 Track Mode 3/A Code</h2><blockquote>
 <p>30 = 0b00000111<br>    31 = 0b01010011</p>
 </blockquote>
 <p>  <strong>(V)=0, (G)=0, (CH)</strong><br>  <strong>code1=011=3, code2=101=5, code3=010=2, code4=011=3</strong></p>
-<h2 id="F12-Track-Number"><a href="#F12-Track-Number" class="headerlink" title="F12 Track Number"></a>F12 Track Number</h2><blockquote>
+<h2 id="4-9-F12-Track-Number"><a href="#4-9-F12-Track-Number" class="headerlink" title="4.9 F12 Track Number"></a>4.9 F12 Track Number</h2><blockquote>
 <p>32 = 0b00000000<br>    33 = 0b01000110</p>
 </blockquote>
 <p>  <strong>V=70</strong></p>
-<h2 id="F13-Track-Status"><a href="#F13-Track-Status" class="headerlink" title="F13 Track Status"></a>F13 Track Status</h2><blockquote>
+<h2 id="4-10-F13-Track-Status"><a href="#4-10-F13-Track-Status" class="headerlink" title="4.10 F13 Track Status"></a>4.10 F13 Track Status</h2><blockquote>
 <p>34 = 0b00000001</p>
 </blockquote>
 <table>
@@ -645,15 +645,15 @@
 </tr>
 </tbody>
 </table>
-<h2 id="F17-Measured-Flight-Level"><a href="#F17-Measured-Flight-Level" class="headerlink" title="F17 Measured Flight Level"></a>F17 Measured Flight Level</h2><blockquote>
+<h2 id="4-11-F17-Measured-Flight-Level"><a href="#4-11-F17-Measured-Flight-Level" class="headerlink" title="4.11 F17 Measured Flight Level"></a>4.11 F17 Measured Flight Level</h2><blockquote>
 <p>38 = 0b00000001<br>    39 = 0b00100011</p>
 </blockquote>
 <p>  <strong>V=0000000100100011=291*1/4FL=72.75FL</strong></p>
-<h2 id="F20-Calculated-Rate-Of-Climb-Descent"><a href="#F20-Calculated-Rate-Of-Climb-Descent" class="headerlink" title="F20 Calculated Rate Of Climb/Descent"></a>F20 Calculated Rate Of Climb/Descent</h2><blockquote>
+<h2 id="4-12-F20-Calculated-Rate-Of-Climb-Descent"><a href="#4-12-F20-Calculated-Rate-Of-Climb-Descent" class="headerlink" title="4.12 F20 Calculated Rate Of Climb/Descent"></a>4.12 F20 Calculated Rate Of Climb/Descent</h2><blockquote>
 <p>40 = 0b00000000<br>    41 = 0b00000000</p>
 </blockquote>
 <p>  <strong>V=0*6.25feet/minute</strong></p>
-<h2 id="F21-Flight-Plan-Related-Data"><a href="#F21-Flight-Plan-Related-Data" class="headerlink" title="F21 Flight Plan Related Data"></a>F21 Flight Plan Related Data</h2><h3 id="Primary-Subfield"><a href="#Primary-Subfield" class="headerlink" title="Primary Subfield"></a>Primary Subfield</h3><blockquote>
+<h2 id="4-13-F21-Flight-Plan-Related-Data"><a href="#4-13-F21-Flight-Plan-Related-Data" class="headerlink" title="4.13 F21 Flight Plan Related Data"></a>4.13 F21 Flight Plan Related Data</h2><h3 id="4-13-1-Primary-Subfield"><a href="#4-13-1-Primary-Subfield" class="headerlink" title="4.13.1 Primary Subfield"></a>4.13.1 Primary Subfield</h3><blockquote>
 <p>42 = 0b11011111</p>
 </blockquote>
 <table>
@@ -740,15 +740,15 @@
 </tr>
 </tbody>
 </table>
-<h3 id="Subfield"><a href="#Subfield" class="headerlink" title="Subfield"></a>Subfield</h3><h4 id="TAG"><a href="#TAG" class="headerlink" title="TAG"></a>TAG</h4><blockquote>
+<h3 id="4-13-2-Subfield"><a href="#4-13-2-Subfield" class="headerlink" title="4.13.2 Subfield"></a>4.13.2 Subfield</h3><h4 id="4-13-2-1-TAG"><a href="#4-13-2-1-TAG" class="headerlink" title="4.13.2.1 TAG"></a>4.13.2.1 TAG</h4><blockquote>
 <p>44 = 0b00000000<br>    45 = 0b00000000</p>
 </blockquote>
 <p>  <strong>V=0</strong></p>
-<h4 id="CSN"><a href="#CSN" class="headerlink" title="CSN"></a>CSN</h4><blockquote>
+<h4 id="4-13-2-2-CSN"><a href="#4-13-2-2-CSN" class="headerlink" title="4.13.2.2 CSN"></a>4.13.2.2 CSN</h4><blockquote>
 <p>46 = 0b01000011<br>    47 = 0b01000100<br>    48 = 0b01000111<br>    49 = 0b00110100<br>    50 = 0b00111000<br>    51 = 0b00110111<br>    52 = 0b00110100</p>
 </blockquote>
 <p>  <strong>V=CDG4874, ASCII转码</strong></p>
-<h4 id="FCT"><a href="#FCT" class="headerlink" title="FCT"></a>FCT</h4><blockquote>
+<h4 id="4-13-2-3-FCT"><a href="#4-13-2-3-FCT" class="headerlink" title="4.13.2.3 FCT"></a>4.13.2.3 FCT</h4><blockquote>
 <p>53 = 0b01101000 </p>
 </blockquote>
 <table>
@@ -771,51 +771,51 @@
 </tr>
 </tbody>
 </table>
-<h4 id="TAC"><a href="#TAC" class="headerlink" title="TAC"></a>TAC</h4><blockquote>
+<h4 id="4-13-2-4-TAC"><a href="#4-13-2-4-TAC" class="headerlink" title="4.13.2.4 TAC"></a>4.13.2.4 TAC</h4><blockquote>
 <p>54 = 0b01000010<br>    55 = 0b00110111<br>    56 = 0b00110011<br>    57 = 0b00110111</p>
 </blockquote>
 <p>  <strong>V=B737, ASCII转码</strong></p>
-<h4 id="WTC"><a href="#WTC" class="headerlink" title="WTC"></a>WTC</h4><blockquote>
+<h4 id="4-13-2-5-WTC"><a href="#4-13-2-5-WTC" class="headerlink" title="4.13.2.5 WTC"></a>4.13.2.5 WTC</h4><blockquote>
 <p>58 = 0b01001101</p>
 </blockquote>
 <p>  <strong>V=M, ASCII转码</strong></p>
-<h4 id="DEP"><a href="#DEP" class="headerlink" title="DEP"></a>DEP</h4><blockquote>
+<h4 id="4-13-2-6-DEP"><a href="#4-13-2-6-DEP" class="headerlink" title="4.13.2.6 DEP"></a>4.13.2.6 DEP</h4><blockquote>
 <p>59 = 0b01011010<br>    60 = 0b01010000<br>    61 = 0b01010000<br>    62 = 0b01010000</p>
 </blockquote>
 <p>  <strong>V=ZPPP, ASCII转码</strong></p>
-<h4 id="DST"><a href="#DST" class="headerlink" title="DST"></a>DST</h4><blockquote>
+<h4 id="4-13-2-7-DST"><a href="#4-13-2-7-DST" class="headerlink" title="4.13.2.7 DST"></a>4.13.2.7 DST</h4><blockquote>
 <p>63 = 0b01011010<br>    64 = 0b01010011<br>    65 = 0b01001010<br>    66 = 0b01001110</p>
 </blockquote>
 <p>  <strong>V=ZSJN, ASCII转码</strong></p>
-<h4 id="CFL"><a href="#CFL" class="headerlink" title="CFL"></a>CFL</h4><blockquote>
+<h4 id="4-13-2-8-CFL"><a href="#4-13-2-8-CFL" class="headerlink" title="4.13.2.8 CFL"></a>4.13.2.8 CFL</h4><blockquote>
 <p>67 = 0b00000000<br>    68 = 0b00000000</p>
 </blockquote>
 <p>  <strong>V=0*1/4FL</strong></p>
-<h4 id="TOD"><a href="#TOD" class="headerlink" title="TOD"></a>TOD</h4><blockquote>
+<h4 id="4-13-2-9-TOD"><a href="#4-13-2-9-TOD" class="headerlink" title="4.13.2.9 TOD"></a>4.13.2.9 TOD</h4><blockquote>
 <p>69 = 0b00000101</p>
 </blockquote>
 <p>  REP=5, 重复5次</p>
-<h5 id="第1次"><a href="#第1次" class="headerlink" title="第1次"></a>第1次</h5><blockquote>
+<h5 id="4-13-2-9-1-第1次"><a href="#4-13-2-9-1-第1次" class="headerlink" title="4.13.2.9.1 第1次"></a>4.13.2.9.1 第1次</h5><blockquote>
 <p>70 = 0b00001000<br>    71 = 0b00000000<br>    72 = 0b00000000<br>    73 = 0b10000000</p>
 </blockquote>
 <p>  <strong>TYP=1=EOBT</strong><br>  <strong>DAY=0=TODAY</strong><br>  <strong>HOR=0</strong><br>  <strong>MIN=0</strong><br>  <strong>AVS=1</strong><br>  <strong>SEC=16</strong></p>
-<h5 id="第2次"><a href="#第2次" class="headerlink" title="第2次"></a>第2次</h5><blockquote>
+<h5 id="4-13-2-9-2-第2次"><a href="#4-13-2-9-2-第2次" class="headerlink" title="4.13.2.9.2 第2次"></a>4.13.2.9.2 第2次</h5><blockquote>
 <p>74 = 0b00010000<br>    75 = 0b00000000<br>    76 = 0b00000000<br>    77 = 0b10000000</p>
 </blockquote>
 <p>  <strong>TYP=2=ETD</strong><br>  <strong>DAY=0=TODAY</strong><br>  <strong>HOR=0</strong><br>  <strong>MIN=0</strong><br>  <strong>AVS=1</strong><br>  <strong>SEC=0</strong></p>
-<h5 id="第3次"><a href="#第3次" class="headerlink" title="第3次"></a>第3次</h5><blockquote>
+<h5 id="4-13-2-9-3-第3次"><a href="#4-13-2-9-3-第3次" class="headerlink" title="4.13.2.9.3 第3次"></a>4.13.2.9.3 第3次</h5><blockquote>
 <p>78 = 0b00111000<br>    79 = 0b00000000<br>    80 = 0b00000000<br>    81 = 0b10000000</p>
 </blockquote>
 <p>  <strong>TYP=7=ATOT</strong><br>  <strong>DAY=0=TODAY</strong><br>  <strong>HOR=0</strong><br>  <strong>MIN=0</strong><br>  <strong>AVS=1</strong><br>  <strong>SEC=0</strong></p>
-<h5 id="第4次"><a href="#第4次" class="headerlink" title="第4次"></a>第4次</h5><blockquote>
+<h5 id="4-13-2-9-4-第4次"><a href="#4-13-2-9-4-第4次" class="headerlink" title="4.13.2.9.4 第4次"></a>4.13.2.9.4 第4次</h5><blockquote>
 <p>82 = 0b01000000<br>    83 = 0b00000000<br>    84 = 0b00000000<br>    85 = 0b10000000</p>
 </blockquote>
 <p>  <strong>TYP=8=ETA</strong><br>  <strong>DAY=0=TODAY</strong><br>  <strong>HOR=0</strong><br>  <strong>MIN=0</strong><br>  <strong>AVS=1</strong><br>  <strong>SEC=0</strong></p>
-<h5 id="第5次"><a href="#第5次" class="headerlink" title="第5次"></a>第5次</h5><blockquote>
+<h5 id="4-13-2-9-5-第5次"><a href="#4-13-2-9-5-第5次" class="headerlink" title="4.13.2.9.5 第5次"></a>4.13.2.9.5 第5次</h5><blockquote>
 <p>86 = 0b01010000<br>    87 = 0b00000000<br>    88 = 0b00000000<br>    89 = 0b10000000</p>
 </blockquote>
 <p>  <strong>TYP=10=ALDT</strong><br>  <strong>DAY=0=TODAY</strong><br>  <strong>HOR=0</strong><br>  <strong>MIN=0</strong><br>  <strong>AVS=1</strong><br>  <strong>SEC=0</strong></p>
-<h1 id="FRN列表"><a href="#FRN列表" class="headerlink" title="FRN列表"></a>FRN列表</h1><table>
+<h1 id="5-FRN列表"><a href="#5-FRN列表" class="headerlink" title="5. FRN列表"></a>5. FRN列表</h1><table>
 <thead>
 <tr>
 <th style="text-align:center">FRN</th>
@@ -1067,7 +1067,7 @@
 </tr>
 </tbody>
 </table>
-<h1 id="Aircraft-Derived-Data-列表"><a href="#Aircraft-Derived-Data-列表" class="headerlink" title="Aircraft Derived Data 列表"></a>Aircraft Derived Data 列表</h1><table>
+<h1 id="6-Aircraft-Derived-Data-列表"><a href="#6-Aircraft-Derived-Data-列表" class="headerlink" title="6. Aircraft Derived Data 列表"></a>6. Aircraft Derived Data 列表</h1><table>
 <thead>
 <tr>
 <th style="text-align:center">FRN</th>
@@ -1382,7 +1382,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1419,7 +1419,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1494,7 +1498,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CAT"><span class="nav-text">CAT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LEN"><span class="nav-text">LEN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FSPEC"><span class="nav-text">FSPEC</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Data-Fields"><span class="nav-text">Data Fields</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#F1-Data-Source-Identifier"><span class="nav-text">F1 Data Source Identifier</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F3-Service-Identification"><span class="nav-text">F3 Service Identification</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F4-Time-Of-Track-Information"><span class="nav-text">F4 Time Of Track Information</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F5-Calculated-Track-Position-WGS-84"><span class="nav-text">F5 Calculated Track Position (WGS-84)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F6-Calculated-Track-Position-Cartesian"><span class="nav-text">F6 Calculated Track Position (Cartesian)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F7-Calculated-Track-Velocity-Cartesian"><span class="nav-text">F7 Calculated Track Velocity (Cartesian)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F9-Track-Mode-3-A-Code"><span class="nav-text">F9 Track Mode 3/A Code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F12-Track-Number"><span class="nav-text">F12 Track Number</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F13-Track-Status"><span class="nav-text">F13 Track Status</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F17-Measured-Flight-Level"><span class="nav-text">F17 Measured Flight Level</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F20-Calculated-Rate-Of-Climb-Descent"><span class="nav-text">F20 Calculated Rate Of Climb/Descent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F21-Flight-Plan-Related-Data"><span class="nav-text">F21 Flight Plan Related Data</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Primary-Subfield"><span class="nav-text">Primary Subfield</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Subfield"><span class="nav-text">Subfield</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TAG"><span class="nav-text">TAG</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CSN"><span class="nav-text">CSN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FCT"><span class="nav-text">FCT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TAC"><span class="nav-text">TAC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WTC"><span class="nav-text">WTC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DEP"><span class="nav-text">DEP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DST"><span class="nav-text">DST</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CFL"><span class="nav-text">CFL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TOD"><span class="nav-text">TOD</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第1次"><span class="nav-text">第1次</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第2次"><span class="nav-text">第2次</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第3次"><span class="nav-text">第3次</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第4次"><span class="nav-text">第4次</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第5次"><span class="nav-text">第5次</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FRN列表"><span class="nav-text">FRN列表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Aircraft-Derived-Data-列表"><span class="nav-text">Aircraft Derived Data 列表</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-CAT"><span class="nav-text">1. CAT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-LEN"><span class="nav-text">2. LEN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-FSPEC"><span class="nav-text">3. FSPEC</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Data-Fields"><span class="nav-text">4. Data Fields</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-F1-Data-Source-Identifier"><span class="nav-text">4.1 F1 Data Source Identifier</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-F3-Service-Identification"><span class="nav-text">4.2 F3 Service Identification</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-F4-Time-Of-Track-Information"><span class="nav-text">4.3 F4 Time Of Track Information</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-F5-Calculated-Track-Position-WGS-84"><span class="nav-text">4.4 F5 Calculated Track Position (WGS-84)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-F6-Calculated-Track-Position-Cartesian"><span class="nav-text">4.5 F6 Calculated Track Position (Cartesian)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-7-F7-Calculated-Track-Velocity-Cartesian"><span class="nav-text">4.7 F7 Calculated Track Velocity (Cartesian)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-8-F9-Track-Mode-3-A-Code"><span class="nav-text">4.8 F9 Track Mode 3/A Code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-9-F12-Track-Number"><span class="nav-text">4.9 F12 Track Number</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-10-F13-Track-Status"><span class="nav-text">4.10 F13 Track Status</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-11-F17-Measured-Flight-Level"><span class="nav-text">4.11 F17 Measured Flight Level</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-12-F20-Calculated-Rate-Of-Climb-Descent"><span class="nav-text">4.12 F20 Calculated Rate Of Climb/Descent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-13-F21-Flight-Plan-Related-Data"><span class="nav-text">4.13 F21 Flight Plan Related Data</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-13-1-Primary-Subfield"><span class="nav-text">4.13.1 Primary Subfield</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-13-2-Subfield"><span class="nav-text">4.13.2 Subfield</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-13-2-1-TAG"><span class="nav-text">4.13.2.1 TAG</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-13-2-2-CSN"><span class="nav-text">4.13.2.2 CSN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-13-2-3-FCT"><span class="nav-text">4.13.2.3 FCT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-13-2-4-TAC"><span class="nav-text">4.13.2.4 TAC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-13-2-5-WTC"><span class="nav-text">4.13.2.5 WTC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-13-2-6-DEP"><span class="nav-text">4.13.2.6 DEP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-13-2-7-DST"><span class="nav-text">4.13.2.7 DST</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-13-2-8-CFL"><span class="nav-text">4.13.2.8 CFL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-13-2-9-TOD"><span class="nav-text">4.13.2.9 TOD</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-13-2-9-1-第1次"><span class="nav-text">4.13.2.9.1 第1次</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-13-2-9-2-第2次"><span class="nav-text">4.13.2.9.2 第2次</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-13-2-9-3-第3次"><span class="nav-text">4.13.2.9.3 第3次</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-13-2-9-4-第4次"><span class="nav-text">4.13.2.9.4 第4次</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-13-2-9-5-第5次"><span class="nav-text">4.13.2.9.5 第5次</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-FRN列表"><span class="nav-text">5. FRN列表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-Aircraft-Derived-Data-列表"><span class="nav-text">6. Aircraft Derived Data 列表</span></a></li></ol></div>
             
 
           </div>

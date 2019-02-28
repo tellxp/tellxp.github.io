@@ -285,6 +285,186 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://tellxp.github.io/2017/05/15/2017-05-15-typescript-interpolation/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tellxp">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tellxp的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/05/15/2017-05-15-typescript-interpolation/" class="post-title-link" itemprop="url">Typescript的插值</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-05-15 22:56:57" itemprop="dateCreated datePublished" datetime="2017-05-15T22:56:57+08:00">2017-05-15</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-02-28 22:04:57" itemprop="dateModified" datetime="2019-02-28T22:04:57+08:00">2019-02-28</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/前端开发/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="1-插值（Interpolation）"><a href="#1-插值（Interpolation）" class="headerlink" title="1. 插值（Interpolation）"></a>1. 插值（Interpolation）</h1><p>插值是非常有用的东西，可以说是高级的字符串拼接。</p>
+<p>我们常见的插值有Angular中的插值，也有sass中的#{var}插值，一直认为插值是动态语言的特有技能，今天偶然发现typescript中也有插值。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2017/05/15/2017-05-15-typescript-interpolation/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://tellxp.github.io/2017/04/30/2017-05-15-sass-interpolation-for-map/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -347,7 +527,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-09-29 23:29:15" itemprop="dateModified" datetime="2018-09-29T23:29:15+08:00">2018-09-29</time>
+                <time title="修改时间：2019-02-28 22:04:44" itemprop="dateModified" datetime="2019-02-28T22:04:44+08:00">2019-02-28</time>
               
             
           </span>
@@ -400,7 +580,7 @@
 
       
         
-          <h1 id="Sass中的插值"><a href="#Sass中的插值" class="headerlink" title="Sass中的插值"></a>Sass中的插值</h1><p>通过 #{} 插值语句可以在选择器或属性名中使用变量，插值函数实质是将标识的内容替换为变量内容。</p>
+          <h1 id="1-Sass中的插值"><a href="#1-Sass中的插值" class="headerlink" title="1. Sass中的插值"></a>1. Sass中的插值</h1><p>通过 #{} 插值语句可以在选择器或属性名中使用变量，插值函数实质是将标识的内容替换为变量内容。</p>
 <figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$name</span>: foo;</span><br><span class="line"><span class="variable">$attr</span>: border;</span><br><span class="line"><span class="selector-tag">p</span>.#&#123;<span class="variable">$name</span>&#125; &#123;</span><br><span class="line">  #&#123;<span class="variable">$attr</span>&#125;-<span class="attribute">color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>编译为</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-class">.foo</span> &#123;</span><br><span class="line">  <span class="attribute">border-color</span>: blue; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -529,7 +709,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-09-29 23:28:21" itemprop="dateModified" datetime="2018-09-29T23:28:21+08:00">2018-09-29</time>
+                <time title="修改时间：2019-02-28 22:04:23" itemprop="dateModified" datetime="2019-02-28T22:04:23+08:00">2019-02-28</time>
               
             
           </span>
@@ -582,7 +762,7 @@
 
       
         
-          <h1 id="关于angular"><a href="#关于angular" class="headerlink" title="关于angular"></a>关于angular</h1><p>关于angular我想不用做太多介绍了，google出的超级框架，主要nb点是双向数据绑定和指令系统，angular2目前还在rc4阶段，虽然做过一些研究，无奈相关的UI组件实在有限（尤其对xx管理系统需要的treeview、grid等），所以目前还是以angular1作为主力。<br>关于angularjs的更多介绍，可以参见</p>
+          <h1 id="1-关于angular"><a href="#1-关于angular" class="headerlink" title="1. 关于angular"></a>1. 关于angular</h1><p>关于angular我想不用做太多介绍了，google出的超级框架，主要nb点是双向数据绑定和指令系统，angular2目前还在rc4阶段，虽然做过一些研究，无奈相关的UI组件实在有限（尤其对xx管理系统需要的treeview、grid等），所以目前还是以angular1作为主力。<br>关于angularjs的更多介绍，可以参见</p>
 <ul>
 <li><a href="https://angularjs.org" target="_blank" rel="noopener">angularjs官方网站</a></li>
 <li><a href="http://www.imooc.com/learn/156" target="_blank" rel="noopener">大漠穷秋在慕课网上的教程</a></li>
@@ -682,7 +862,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -719,7 +899,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>

@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false,"dimmer":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="准备安装环境 准备3台Windows Server, 设置hostname分别为  ic-node-01: 主节点 ic-node-02: 从节点 ic-node-03: 从节点 mysql-em-01: 监控节点   配置IP和并分发hosts文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="部署MySQL InnoDB Cluster">
+<meta property="og:url" content="http://tellxp.github.io/2019/02/28/2019-02-28-mysql-innodb-cluster-setup/index.html">
+<meta property="og:site_name" content="tellxp的博客">
+<meta property="og:description" content="准备安装环境 准备3台Windows Server, 设置hostname分别为  ic-node-01: 主节点 ic-node-02: 从节点 ic-node-03: 从节点 mysql-em-01: 监控节点   配置IP和并分发hosts文件">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-28T14:02:38.009Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="部署MySQL InnoDB Cluster">
+<meta name="twitter:description" content="准备安装环境 准备3台Windows Server, 设置hostname分别为  ic-node-01: 主节点 ic-node-02: 从节点 ic-node-03: 从节点 mysql-em-01: 监控节点   配置IP和并分发hosts文件">
+
+
+
+
+
+
+  <link rel="canonical" href="http://tellxp.github.io/2019/02/28/2019-02-28-mysql-innodb-cluster-setup/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>部署MySQL InnoDB Cluster | tellxp的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tellxp的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://tellxp.github.io/2019/02/28/2019-02-28-mysql-innodb-cluster-setup/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tellxp">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tellxp的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">部署MySQL InnoDB Cluster
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-28 21:59:00 / 修改时间：22:02:38" itemprop="dateCreated datePublished" datetime="2019-02-28T21:59:00+08:00">2019-02-28</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/mysql/ha/" itemprop="url" rel="index"><span itemprop="name">ha</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="准备安装环境"><a href="#准备安装环境" class="headerlink" title="准备安装环境"></a>准备安装环境</h1><ol>
+<li><p>准备3台Windows Server, 设置hostname分别为</p>
+<ul>
+<li>ic-node-01: 主节点</li>
+<li>ic-node-02: 从节点</li>
+<li>ic-node-03: 从节点</li>
+<li>mysql-em-01: 监控节点</li>
+</ul>
+</li>
+<li><p>配置IP和并分发hosts文件</p>
+</li>
+</ol>
+<hr>
+<a id="more"></a>
+<h1 id="安装MySQL实例"><a href="#安装MySQL实例" class="headerlink" title="安装MySQL实例"></a>安装MySQL实例</h1><ol>
+<li>使用Windows Installer安装MySQL Server</li>
+</ol>
+<ol start="2">
+<li><p>在mysqld运行的node上使用mysql command，配置集群账户</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create user &apos;cluster_admin&apos;@&apos;%&apos; identified by &apos;Mf#llsy78g&apos;;</span><br><span class="line">grant all privileges on *.* to &apos;cluster_admin&apos;@&apos;%&apos; with grant option;</span><br><span class="line">reset master;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>也可以配置权限更少的账户</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GRANT SELECT ON mysql_innodb_cluster_metadata.* TO your_user@&apos;%&apos;;</span><br><span class="line">GRANT SELECT ON performance_schema.global_status TO your_user@&apos;%&apos;;</span><br><span class="line">GRANT SELECT ON performance_schema.replication_applier_configuration TO your_user@&apos;%&apos;;</span><br><span class="line">GRANT SELECT ON performance_schema.replication_applier_status TO your_user@&apos;%&apos;;</span><br><span class="line">GRANT SELECT ON performance_schema.replication_applier_status_by_coordinator TO your_user@&apos;%&apos;;</span><br><span class="line">GRANT SELECT ON performance_schema.replication_applier_status_by_worker TO your_user@&apos;%&apos;;</span><br><span class="line">GRANT SELECT ON performance_schema.replication_connection_configuration TO your_user@&apos;%&apos;;</span><br><span class="line">GRANT SELECT ON performance_schema.replication_connection_status TO your_user@&apos;%&apos;;</span><br><span class="line">GRANT SELECT ON performance_schema.replication_group_member_stats TO your_user@&apos;%&apos;;</span><br><span class="line">GRANT SELECT ON performance_schema.replication_group_members TO your_user@&apos;%&apos;;</span><br><span class="line">GRANT SELECT ON performance_schema.threads TO your_user@&apos;%&apos; WITH GRANT OPTION;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ol>
+<h1 id="安装mysql-shell"><a href="#安装mysql-shell" class="headerlink" title="安装mysql shell"></a>安装mysql shell</h1><p>mysql shell可以远程配置群集, 可以将mysql shell安装在管理节点上</p>
+<ol>
+<li><p>下载mysql-apt配置工具</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://dev.mysql.com/get/mysql-apt-config_0.8.12-1_all.deb</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装mysql-shell</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get update &amp;&amp; apt-get install mysql-shell</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="创建群集"><a href="#创建群集" class="headerlink" title="创建群集"></a>创建群集</h1><ol>
+<li><p>检查状态和配置，针对mysqld节点</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ic-node-01</span></span><br><span class="line">dba.checkInstanceConfiguration(<span class="string">'cluster_admin@ic-node-01:3306'</span>,&#123;<span class="string">'password'</span>:<span class="string">'Mf#llsy78g'</span>&#125;);</span><br><span class="line">dba.configureInstance(<span class="string">'cluster_admin@ic-node-01:3306'</span>,&#123;<span class="string">'password'</span>:<span class="string">'Mf#llsy78g'</span>&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ic-node-02</span></span><br><span class="line">dba.checkInstanceConfiguration(<span class="string">'cluster_admin@ic-node-02:3306'</span>,&#123;<span class="string">'password'</span>:<span class="string">'Mf#llsy78g'</span>&#125;);</span><br><span class="line">dba.configureInstance(<span class="string">'cluster_admin@ic-node-02:3306'</span>,&#123;<span class="string">'password'</span>:<span class="string">'Mf#llsy78g'</span>&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ic-node-03</span></span><br><span class="line">dba.checkInstanceConfiguration(<span class="string">'cluster_admin@ic-node-03:3306'</span>,&#123;<span class="string">'password'</span>:<span class="string">'Mf#llsy78g'</span>&#125;);</span><br><span class="line">dba.configureInstance(<span class="string">'cluster_admin@ic-node-03:3306'</span>,&#123;<span class="string">'password'</span>:<span class="string">'Mf#llsy78g'</span>&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改server id</p>
+<ul>
+<li>修改C:\ProgramData\MySQL\MySQL Server 8.0\my.ini</li>
+<li>分别设置node1-3的server_id为01-03，重启服务</li>
+</ul>
+</li>
+<li><p>连接到主节点</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlsh 'cluster_admin'@'10.100.1.181' --password=Mf#llsy78g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行创建群集的操作</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cluster = dba.createCluster(<span class="string">'dev_cluster'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检查集群节点状态</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cluster = dba.getCluster(<span class="string">'dev_cluster'</span>);</span><br><span class="line">cluster.status();</span><br><span class="line">cluster.checkInstanceState(<span class="string">'cluster_admin@ic-node-02:3306'</span>,&#123;<span class="string">'password'</span>:<span class="string">'Mf#llsy78g'</span>&#125;);</span><br><span class="line">cluster.checkInstanceState(<span class="string">'cluster_admin@ic-node-03:3306'</span>,&#123;<span class="string">'password'</span>:<span class="string">'Mf#llsy78g'</span>&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置防火墙端口</p>
+<ul>
+<li>允许每个节点上3306, 33060,33061的TCP连接</li>
+</ul>
+</li>
+<li><p>将其他节点加入群集</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cluster.addInstance(<span class="string">'cluster_admin@ic-node-02:3306'</span>,&#123;<span class="string">'password'</span>:<span class="string">'Mf#llsy78g'</span>&#125;);</span><br><span class="line">cluster.addInstance(<span class="string">'cluster_admin@ic-node-03:3306'</span>,&#123;<span class="string">'password'</span>:<span class="string">'Mf#llsy78g'</span>&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//在加入集群失败后，可以通过如下命令来重置群集</span></span><br><span class="line">cluster = dba.rebootClusterFromCompleteOutage();</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="安装router"><a href="#安装router" class="headerlink" title="安装router"></a>安装router</h1><ul>
+<li>在每个节点安装router, 指向本机的hostname;</li>
+<li>允许6446-6448端口的TCP连接</li>
+<li>配置前端haproxy的负载均衡</li>
+</ul>
+<h1 id="配置监控"><a href="#配置监控" class="headerlink" title="配置监控"></a>配置监控</h1><ol>
+<li><p>安装MySQL Enterprise Monitor Service</p>
+</li>
+<li><p>在每个节点安装monitor agent</p>
+<ul>
+<li>需要配置agent的url指向monitor server节点，即mysql-em-01的DNS</li>
+<li>配置agent的密码为安装mysql enterprise monitor service设置的密码<blockquote>
+<p>加入<a href="https://dev.mysql.com/doc/mysql-monitor/4.0/en/mem-qanal-using-performance-schema.html" target="_blank" rel="noopener">query analyse</a></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>更新自签名的ssl证书</p>
+<ul>
+<li><p>使用acme.sh获取证书后，通过openssh转为pem</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl pkcs12 -export -in /root/.acme.sh/dizall.com/dizall.com.cer -inkey /root/.acme.sh/dizall.com/dizall.com.key -out /root/ssl/tomcat/cert.pem -name tomcat</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用java自带的keytool将密钥导入到tomcat中</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    keytool -importkeystore -srckeystore cert.pem -srcstoretype pkcs12 -destkeystore "C:\Program Files\MySQL\Enterprise\Monitor\apache-tomcat\conf\keystore"  -deststoretype jks -srcalias tomcat -destalias tomcat</span><br><span class="line">    ``` </span><br><span class="line">- 查看tomcat的密钥</span><br><span class="line">    ```shell</span><br><span class="line">    keytool -keystore "C:\Program Files\MySQL\Enterprise\Monitor\apache-tomcat\conf\keystore" -list -v</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><ol>
+<li><p>检查mysqld运行节点主机名</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT coalesce(@@report_host, @@hostname);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置root远程访问</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">select user,host from user;</span><br><span class="line">update user set host=&apos;%&apos; where user=&apos;root&apos;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>mysql shell操作</p>
+<ul>
+<li><p>shell连接</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysqlsh 'cluster_admin'@'10.100.1.181' --password=Mf#llsy78g</span><br><span class="line">mysqlsh 'cluster_admin'@'10.100.1.182' --password=Mf#llsy78g</span><br><span class="line">mysqlsh 'cluster_admin'@'10.100.1.183' --password=Mf#llsy78g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>集群操作</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 删除实例</span></span><br><span class="line">cluster.removeInstance(<span class="string">'cluster_admin@ic-node-03:3306'</span>,&#123;<span class="string">'password'</span>:<span class="string">'Mf#llsy78g'</span>&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 把节点重新加入集群</span></span><br><span class="line">cluster.rejoinInstance(<span class="string">'cluster_admin@ic-node-02:3306'</span>,&#123;<span class="string">'password'</span>:<span class="string">'Mf#llsy78g'</span>&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 销毁群集</span></span><br><span class="line">cluster.dissolve(&#123;<span class="attr">force</span>:<span class="literal">true</span>&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><a href="https://dev.mysql.com/doc/refman/8.0/en/mysql-innodb-cluster-userguide.html" target="_blank" rel="noopener">InnoDB Cluster</a></li>
+<li><a href="https://lefred.be/content/mysql-innodb-cluster-mysql-shell-and-the-adminapi/" target="_blank" rel="noopener">MySQL InnoDB Cluster : MySQL Shell and the AdminAPI</a></li>
+<li><a href="https://lefred.be/content/mysql-8-0-innodb-cluster-the-quick-hands-on-manual/" target="_blank" rel="noopener">MySQL 8.0 InnoDB Cluster – the quick hands-on manual</a></li>
+<li><a href="https://mysqlserverteam.com/mysql-innodb-cluster-8-0-a-hands-on-tutorial/" target="_blank" rel="noopener">MySQL InnoDB Cluster 8.0 – A Hands-on Tutorial</a></li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/21/2019-02-21-kubernetes-mongodb-shard-setup/" rel="next" title="在Kubernetes中部署MongoDB Shard Cluster">
+                <i class="fa fa-chevron-left"></i> 在Kubernetes中部署MongoDB Shard Cluster
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tellxp</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备安装环境"><span class="nav-text">准备安装环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装MySQL实例"><span class="nav-text">安装MySQL实例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装mysql-shell"><span class="nav-text">安装mysql shell</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建群集"><span class="nav-text">创建群集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装router"><span class="nav-text">安装router</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置监控"><span class="nav-text">配置监控</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他"><span class="nav-text">其他</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tellxp</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+  
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
