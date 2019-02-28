@@ -10,14 +10,14 @@ tags:
 - 前端
 ---
 
-# 插值（Interpolation）
+# 1. 插值（Interpolation）
 插值是非常有用的东西，可以说是高级的字符串拼接。
 
 我们常见的插值有Angular中的插值，也有sass中的#{var}插值，一直认为插值是动态语言的特有技能，今天偶然发现typescript中也有插值。
 
 <!--more-->
 
-# Typescript中的插值
+# 2. Typescript中的插值
 Typescript中叫做模板字符串（template strings），具体可以查看[Typescript官方文档](https://www.typescriptlang.org/docs/handbook/basic-types.html)。
 
 具体描述如下：

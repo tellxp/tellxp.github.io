@@ -3,10 +3,12 @@ layout: single
 classes: wide
 title:  "在Kubernetes中部署MongoDB Shard Cluster"
 date:   2019-02-21 17:24:00 +0800
-categories: kubernetes mongodb
+categories: 
+    - kubernetes
+    - mongodb
 ---
 
-# 安装MongoDB Enterprise Kubernetes Operator
+# 1. 安装MongoDB Enterprise Kubernetes Operator
 1. 拉取官方的模板
     ```bash
     git clone https://github.com/mongodb/mongodb-enterprise-kubernetes.git
@@ -46,7 +48,7 @@ categories: kubernetes mongodb
 
 <!--more-->
 
-# 部署shard cluster
+# 2. 部署shard cluster
 1. 编辑需要的部署文件，这里使用了CRD
     ```yaml
     ---
@@ -90,11 +92,11 @@ categories: kubernetes mongodb
 4. 观察容器组的状态
 
 
-# 部署的实例
+# 3. 部署的实例
 - mmsBaseUri: http://mongodb-ops.dizall.com
 - Account Public API Key: 05fdfb7a-5430-4f90-a66b-b55b202d5cf4
 
-# 其他片段
+# 4. 其他片段
 - 批量操作pod和images
    ```bash
    # 批量操作pods
@@ -131,7 +133,7 @@ categories: kubernetes mongodb
     ```
 
 
-# 参考
+# 5. 参考
 1. [Install MongoDB Enterprise Kubernetes Operator](https://docs.opsmanager.mongodb.com/current/tutorial/install-k8s-operator/)
 2. [Deploy a Replica Set](https://docs.opsmanager.mongodb.com/current/tutorial/deploy-replica-set/)
 3. [Deploy a Sharded Cluster](https://docs.opsmanager.mongodb.com/current/tutorial/deploy-sharded-cluster/)

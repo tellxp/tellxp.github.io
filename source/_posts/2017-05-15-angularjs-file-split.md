@@ -10,7 +10,7 @@ tags:
 - angularjs
 ---
 
-# 关于angular
+# 1. 关于angular
 关于angular我想不用做太多介绍了，google出的超级框架，主要nb点是双向数据绑定和指令系统，angular2目前还在rc4阶段，虽然做过一些研究，无奈相关的UI组件实在有限（尤其对xx管理系统需要的treeview、grid等），所以目前还是以angular1作为主力。
 关于angularjs的更多介绍，可以参见
 - [angularjs官方网站](https://angularjs.org)
@@ -18,7 +18,7 @@ tags:
 
 ---
 <!--more-->
-# 一般anguarjs的加载方式
+# 2. 一般anguarjs的加载方式
 最为常见的angularjs的加载方式采用在html标签加ng-app="my-app"，下面是一个典型的angular应用，带ui-router：
 ```html
 <!DOCTYPE html>
@@ -97,7 +97,7 @@ tags:
 
 ---
 
-# 按需加载
+# 3. 按需加载
 js按需加载的工具很多，常见的有requirejs、seajs、systemjs（angular2的例子里面使用的是这个），还有目前比较火的webpack，这里我们使用webpack作为加载工具。
 关于webpack，可以访问webpack的官方网站获取更多信息：
 - [webpack官网](webpack.github.io)
@@ -204,5 +204,5 @@ define('router',
 在router中，使用ui-router的controller赋值，指定哪个ui-view使用哪个controller，这样实现了html中ng-controller的完全分离，同时路由在统一的文件中配置路由，也更加清晰。
 
 ---
-# 总结
+# 4. 总结
 实现参考了[张志敏的技术专栏：使用 RequireJS 加载AngularJS](http://beginor.github.io/2014/11/17/load-angularjs-with-requirejs.html)，但是requirejs实在是麻烦，由于webpack的出现以及ui-router，同时鉴于现在客户端计算机都很强大了，这里没有考虑promise对象的问题，采用的是直接加载所有的js文件，只是重点解决controller依赖的问题。

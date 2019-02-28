@@ -3,7 +3,9 @@ layout: single
 classes: wide
 title:  "CAT62的全数据译码"
 date:   2018-10-31 22:44:20 +0800
-categories: cat eurocontrol
+categories: 
+    - cat
+    - eurocontrol
 ---
 
 # CAT
