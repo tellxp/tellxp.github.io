@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="tellxp的博客">
 <meta property="og:description" content="1. 下载helm 在Helm Release上下载Linux amd64版本的helm包  解压并移动到bin目录 12tar -zxvf helm-v2.0.0-linux-amd64.tgzmv linux-amd64/helm /usr/local/bin/helm   2. 拉取tiller镜像123docker pull tellxp/tiller:v2.11.0docker tag">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-28T14:12:43.795Z">
+<meta property="og:updated_time" content="2019-04-03T14:09:21.598Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在Kubernetes中使用helm">
 <meta name="twitter:description" content="1. 下载helm 在Helm Release上下载Linux amd64版本的helm包  解压并移动到bin目录 12tar -zxvf helm-v2.0.0-linux-amd64.tgzmv linux-amd64/helm /usr/local/bin/helm   2. 拉取tiller镜像123docker pull tellxp/tiller:v2.11.0docker tag">
@@ -349,7 +349,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-28 22:12:43" itemprop="dateModified" datetime="2019-02-28T22:12:43+08:00">2019-02-28</time>
+                <time title="修改时间：2019-04-03 22:09:21" itemprop="dateModified" datetime="2019-04-03T22:09:21+08:00">2019-04-03</time>
               
             
           </span>
@@ -409,10 +409,10 @@
 </li>
 </ol>
 <h1 id="2-拉取tiller镜像"><a href="#2-拉取tiller镜像" class="headerlink" title="2. 拉取tiller镜像"></a>2. 拉取tiller镜像</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker pull tellxp/tiller:v2.11.0</span><br><span class="line">docker tag tellxp/tiller:v2.11.0 gcr.io/kubernetes-helm/tiller:v2.11.0</span><br><span class="line">docker rmi tellxp/tiller:v2.11.0</span><br></pre></td></tr></table></figure>
-<h1 id="3-创建tiller服务账户"><a href="#3-创建tiller服务账户" class="headerlink" title="3. 创建tiller服务账户"></a>3. 创建tiller服务账户</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">kubectl create serviceaccount --namespace kube-system tiller</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 将服务账户绑定到cluster-admin</span><br><span class="line">kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller</span><br><span class="line"></span><br><span class="line">kubectl patch deploy --namespace kube-system tiller-deploy -p '&#123;"spec":&#123;"template":&#123;"spec":&#123;"serviceAccount":"tiller"&#125;&#125;&#125;&#125;'</span><br></pre></td></tr></table></figure>
-<h1 id="4-初始化"><a href="#4-初始化" class="headerlink" title="4. 初始化"></a>4. 初始化</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">helm init --upgrade --stable-repo-url (repo-url)</span><br><span class="line"><span class="meta">#</span>可选的国内repo</span><br><span class="line"><span class="meta">#</span>https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts 已过期</span><br><span class="line"><span class="meta">#</span>https://aliacs-app-catalog.oss-cn-hangzhou.aliyuncs.com/charts/ charts较少</span><br><span class="line"><span class="meta">#</span>https://aliacs-app-catalog.oss-cn-hangzhou.aliyuncs.com/charts-incubator/ charts较少</span><br></pre></td></tr></table></figure>
+<h1 id="3-创建tiller服务账户"><a href="#3-创建tiller服务账户" class="headerlink" title="3. 创建tiller服务账户"></a>3. 创建tiller服务账户</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">kubectl create serviceaccount --namespace kube-system tiller</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将服务账户绑定到cluster-admin</span></span><br><span class="line">kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller</span><br><span class="line"></span><br><span class="line">kubectl patch deploy --namespace kube-system tiller-deploy -p '&#123;"spec":&#123;"template":&#123;"spec":&#123;"serviceAccount":"tiller"&#125;&#125;&#125;&#125;'</span><br></pre></td></tr></table></figure>
+<h1 id="4-初始化"><a href="#4-初始化" class="headerlink" title="4. 初始化"></a>4. 初始化</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">helm init --upgrade --stable-repo-url (repo-url)</span><br><span class="line"><span class="meta">#</span><span class="bash">可选的国内repo</span></span><br><span class="line"><span class="meta">#</span><span class="bash">https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts 已过期</span></span><br><span class="line"><span class="meta">#</span><span class="bash">https://aliacs-app-catalog.oss-cn-hangzhou.aliyuncs.com/charts/ charts较少</span></span><br><span class="line"><span class="meta">#</span><span class="bash">https://aliacs-app-catalog.oss-cn-hangzhou.aliyuncs.com/charts-incubator/ charts较少</span></span><br></pre></td></tr></table></figure>
 <h1 id="5-使用"><a href="#5-使用" class="headerlink" title="5. 使用"></a>5. 使用</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">helm install .....</span><br></pre></td></tr></table></figure>
-<h1 id="6-其他一些有用的命令"><a href="#6-其他一些有用的命令" class="headerlink" title="6. 其他一些有用的命令"></a>6. 其他一些有用的命令</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 仅客户端运行</span><br><span class="line">helm init --client-only --stable-repo-url</span><br></pre></td></tr></table></figure>
+<h1 id="6-其他一些有用的命令"><a href="#6-其他一些有用的命令" class="headerlink" title="6. 其他一些有用的命令"></a>6. 其他一些有用的命令</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 仅客户端运行</span></span><br><span class="line">helm init --client-only --stable-repo-url</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -451,8 +451,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/23/2018-09-23-kubernetes-1-11-3-install/" rel="next" title="安装Kubernetes 1.11.3">
-                <i class="fa fa-chevron-left"></i> 安装Kubernetes 1.11.3
+              <a href="/2018/09/30/2018-09-30-ceph-install/" rel="next" title="安装Ceph并与Kubernetes集成">
+                <i class="fa fa-chevron-left"></i> 安装Ceph并与Kubernetes集成
               </a>
             
           </div>
@@ -461,8 +461,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/30/2018-09-30-ceph-install/" rel="prev" title="安装Ceph并与Kubernetes集成">
-                安装Ceph并与Kubernetes集成 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/30/2018-09-90-usefull-scratch/" rel="prev" title="常用语句片段">
+                常用语句片段 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
